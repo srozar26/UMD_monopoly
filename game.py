@@ -1,4 +1,4 @@
-from Random import randint
+from random import randint
 # still need board, player, and property import
 from event_generator import event_generator
 from decision_engine import decision_engine
@@ -7,8 +7,8 @@ from save import save_game
 
 
 
-class game:
-   def__init__(self):
+class Game:
+   def __init__(self):
        self.event = event_generator()
        #add board and player attributes here
        self.cpu = decision_engine()
