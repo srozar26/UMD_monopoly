@@ -54,7 +54,7 @@ class Game:
       
        # make code if the space has not be claimed by a player or the cpu yet. We can just make this to determine whether or not the cpu buys it
       
-       #  then make code for if you already own the property and then must pay rent
+       # then make code for if you already own the property and then must pay rent
       
       
        # code for if a player is out of money (game over)
