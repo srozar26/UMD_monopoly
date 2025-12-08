@@ -1,5 +1,10 @@
-from Random import randint
-# still need board, player, and property import
+from random import randint
+
+
+from board import MakeBoard 
+from player import Player
+from property import Property
+
 from event_generator import event_generator
 from decision_engine import decision_engine
 from save import save_game
@@ -7,12 +12,9 @@ from save import save_game
 
 
 
-class game:
-   def__init__(self):
-       self.event = event_generator()
-       #add board and player attributes here
-       self.cpu = decision_engine()
-       self.save = save_game()
+class Game:
+   def __init__(self):
+       self.board = MakeBoard()
       
       
        self.turn_count = 0
