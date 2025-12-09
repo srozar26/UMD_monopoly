@@ -118,6 +118,7 @@ class UMDProperty:
             group: Optional property group (auto-detected from code if None)
             base_rent: Optional base rent (uses group default if None)
         """
+        
         self.code = code
         self.name = name
         self.position = position

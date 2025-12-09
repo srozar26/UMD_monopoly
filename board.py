@@ -13,7 +13,7 @@ D= Dining hall
 R = Rent a house
 
 """
-class Make_board:
+class MakeBoard:
     def __init__(self):
         self.board_layout = [
             "C V M U U H D V V M E",
