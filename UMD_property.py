@@ -60,7 +60,7 @@ class UMDProperty:
             "properties": {
                 "M": "McKeldin Library",
                 "H": "Hornbake Library",
-                "S": "Stamp Student Union"
+                "U": "Stamp Student Union"
             },
             "full_set_count": 3,
             "base_rent": 30,

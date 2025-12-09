@@ -39,7 +39,7 @@ class Game:
             self.board.prop_mapping[symbol].append(prop)
 
         self.turn_count = 0
-        self.max_turns = 50
+        self.max_turns = 100
         self.current_player = "player"
 
     def get_property_from_symbol(self, symbol):
@@ -119,7 +119,7 @@ class Game:
 
         # Event tile
         if tile_symbol == "E":
-            print(player.name, "triggered an EVENT!")   
+            print(player.name, "triggered an Event!")   
             event_generator()
             return
 
@@ -174,7 +174,7 @@ class Game:
                 player.buy_property(prop)
                 break
             elif choice == "n":
-                print("You skipped buying.")
+                print(f"{player.name} skipped buying.")
                 break
             else:
                 print("Invalid input. Please enter 'y' or 'n'.")
@@ -183,7 +183,7 @@ class Game:
         owner = prop.owner
 
         if owner == player:
-            print("You already own this property.")
+            print(f"{player.name} already owns this property.")
             return
 
         # Monopoly logic
@@ -213,15 +213,29 @@ class Game:
         return alive
 
     def end_game(self):
-        print("\nGame over")
-        print("Total cash:", self.player.cash)
-        print("Properties owned:", self.player.properties)
+        print("\nGame over!")
 
-        save_game({
-            "cash": self.player.cash,
-            "properties": [prop.to_dict() for prop in self.player.properties],
-            "turns": self.turn_count
-        })
+        # this will give the data for not just player 1 but also player 2. before we only had player 1 save data
+        player1_data = {
+        "name": self.player.name,
+        "cash": self.player.cash,
+        "properties": [prop.to_dict() for prop in self.player.properties]
+        }
+
+        player2_data = {
+        "name": self.cpu.name,
+        "cash": self.cpu.cash,
+        "properties": [prop.to_dict() for prop in self.cpu.properties]
+        }
+
+        # Full saved game state
+        game_state = {
+        "turns_played": self.turn_count,
+        "players": [player1_data, player2_data]
+        }
+
+        save_game(game_state)
+
 
     def __str__(self):
         return f"Current Player:{self.current_player}\nBoard:{self.board}"

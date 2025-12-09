@@ -27,32 +27,4 @@ def save_game(game_state, filename=None):
         return None
     
     
-    #Mock trial of function with sample data
-if __name__ == "__main__":
-    sample_game = {
-        "players": [
-            {
-                "name": "Testudo", 
-                "cash": 1500,
-                "position": 0,
-                "properties_owned": ["McKeldin Library"]
-            }
-        ],
-        "properties": {
-            "McKeldin Library": {
-                    "base_rent": 50,
-                    "group": "North Campus",
-                    "owner": "Testudo"
-            }
-        },
-        "current_player": 0,
-        "turn_count":5
-    }
-    #with an automated file name
-    result = save_game(sample_game)
     
-    #with custom
-    result2 = save_game(sample_game, "test_save.json")
-    
-    if result and result2:
-        print("The Save Function works well!")
