@@ -89,5 +89,16 @@ class MakeBoard:
             print(line)
             print(border)
             
-game = Make_board()
-game.display_board()
+    def get_tile(self, position):
+        bottom = self.board_layout[-1].split()
+        top = self.board_layout[0].split()
+        left = [self.board_layout[i].split()[0] for i in range(9, 0, -1)]
+        right = [self.board_layout[i].split()[-1] for i in range(1, 10)]
+        
+        all_tiles = bottom[::-1] + left + top + right
+        return all_tiles[position % 40]
+
+
+if __name__ == "__main__":
+    game = MakeBoard()
+    game.display_board()

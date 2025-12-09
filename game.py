@@ -32,6 +32,14 @@ class Game:
         # Property list from UMD_property.py
         self.all_properties = UMDProperty.create_UMD_board()
 
+        # Create mapping from board symbols to properties
+        self.board.prop_mapping = {}
+        for prop in self.all_properties:
+            symbol = prop.code[0]
+            if symbol not in self.board.prop_mapping:
+                self.board.prop_mapping[symbol] = []
+            self.board.prop_mapping[symbol].append(prop)
+
         self.turn_count = 0
         self.current_player = "player"
         
@@ -82,11 +90,14 @@ class Game:
 
  
     def cpu_take_turn(self):
-
-        current = self.cpu
-        print("\nCPU TURN:")
         roll = randint(1, 6)
-        print("CPU rolled:", roll)
+        current = self.cpu
+        if self.cpu_enabled:
+            print("\nCPU TURN:")
+            print("CPU rolled:", roll)
+        else:
+            print(f"\n{current.name}'s TURN:")
+            print(f"{current.name} rolled:", roll)
 
         current.move(roll, 40)
         self.board.players[current.token] = current.position
@@ -98,8 +109,12 @@ class Game:
         self.handle_tile(current, tile_symbol)
 
         if current.cash <= 0:
-            print("CPU is out of money. You win!")
+            if self.cpu_enabled:
+                print("CPU is out of money. You win!")
+            else:
+                print(f"{current.name} is out of money. Game over!")
             return False
+
 
         return True
     
