@@ -7,23 +7,21 @@ from event_generator import event_generator
 from save import save_game
 
 
-
 class Game:
-    def __init__(self, mode="pvc"):
+    def __init__(self, mode="player_vs_cpu", p1="Player 1", p2="Player 2"):
         self.board = MakeBoard()
-        
-        # player setup
 
-        if mode == "pvc":
-            self.player = Player("Player 1", "@")
+        # player setup
+        if mode == "player_vs_cpu":
+            self.player = Player(p1, "@")   # Use actual name for player 1
             self.cpu = Player("CPU", "#")
             self.cpu_enabled = True
         else:
-            self.player = Player("Player 1", "@")
-            self.cpu = Player("Player 2", "#")
+            self.player = Player(p1, "@")
+            self.cpu = Player(p2, "#")      # if pvp add player 2 instead of cpu
             self.cpu_enabled = False
 
-        # Register both tokens on board
+        # Register both tokens on board which will then give them their position
         self.board.players = {
             self.player.token: self.player.position,
             self.cpu.token: self.cpu.position
@@ -41,9 +39,9 @@ class Game:
             self.board.prop_mapping[symbol].append(prop)
 
         self.turn_count = 0
+        self.max_turns = 50
         self.current_player = "player"
-        
-   
+
     def get_property_from_symbol(self, symbol):
         # maps the board symbols to the umd properties
         mapping = self.board.prop_mapping
@@ -57,80 +55,77 @@ class Game:
                 return p
 
         return mapping[symbol][0]
-    
 
-   
     def take_turn(self):
         current = self.player
         print("\nTurn:", self.turn_count + 1)
 
         roll = randint(1, 6)
-        print("You rolled a", roll)
+        print(f"{current.name} rolled a {roll}")
 
         # Move player and update board
-        current.move(roll, 40)  # 40 because 11+11+9+9 for perimeter of board
+        current.move(roll, 40)
         self.board.players[current.token] = current.position
         self.board.display_board()
 
         # Tile symbol
         tile_symbol = self.board.get_tile(current.position)
-        print("You landed on:", tile_symbol)
+        print(f"{current.name} landed on: {tile_symbol}")
 
         # Handle tile
         self.handle_tile(current, tile_symbol)
-        
-        # code for if a player is out of money (game over)
 
+        # Player loses
         if current.cash <= 0:
-            print("You are out of money. Game over.")
+            print(f"{current.name} is out of money. Game over.")
             return False
 
         return True
-    
 
- 
     def cpu_take_turn(self):
         roll = randint(1, 6)
-        current = self.cpu
+        current = self.cpu  # Could be CPU or Player 2 depending on what user selected
+
         if self.cpu_enabled:
             print("\nCPU TURN:")
             print("CPU rolled:", roll)
         else:
             print(f"\n{current.name}'s TURN:")
-            print(f"{current.name} rolled:", roll)
+            print(f"{current.name} rolled: {roll}")
 
         current.move(roll, 40)
         self.board.players[current.token] = current.position
         self.board.display_board()
 
         tile_symbol = self.board.get_tile(current.position)
-        print("CPU landed on:", tile_symbol)
+
+        if self.cpu_enabled:
+            print("CPU landed on:", tile_symbol)
+        else:
+            print(f"{current.name} landed on:", tile_symbol)
 
         self.handle_tile(current, tile_symbol)
 
         if current.cash <= 0:
             if self.cpu_enabled:
-                print("CPU is out of money. You win!")
+                print("CPU is out of money. YOU WIN!")
             else:
-                print(f"{current.name} is out of money. Game over!")
+                print(f"{current.name} is out of money. GAME OVER!")
             return False
 
-
         return True
-    
 
-  
     def handle_tile(self, player, tile_symbol):
 
         # Event tile
         if tile_symbol == "E":
-            print(player.name, "triggered an EVENT!")
+            print(player.name, "triggered an EVENT!")   
             event_generator()
             return
 
         # Jail tile
         if tile_symbol == "J":
-            print(player.name, "is just visiting jail.")
+            print(player.name, "is in jail.")
             return
 
         # Scooter rental
@@ -148,15 +143,13 @@ class Game:
 
         print(player.name, "landed on property:", prop.name)
 
-        # If unowned 
         if prop.owner is None:
             self.buy_logic(player, prop)
         else:
             self.rent_logic(player, prop)
 
-
     def buy_logic(self, player, prop):
-        """Buy decision for human and CPU"""
+        """Buy decisions for human and CPU"""
 
         cost = prop.cost
 
@@ -173,15 +166,19 @@ class Game:
 
         # Human player logic
         print("Property cost:", cost)
-        choice = input("Buy it? (y/n): ")
 
-        if choice.lower() == "y":
-            player.buy_property(prop)
-        else:
-            print("You skipped buying.")
+        while True:
+            choice = input("Buy it? (y/n): ").strip().lower()
 
+            if choice == "y":
+                player.buy_property(prop)
+                break
+            elif choice == "n":
+                print("You skipped buying.")
+                break
+            else:
+                print("Invalid input. Please enter 'y' or 'n'.")
 
-   
     def rent_logic(self, player, prop):
         owner = prop.owner
 
@@ -193,53 +190,42 @@ class Game:
         monopoly = owner.has_monopoly(prop.group)
 
         rent = prop.calculate_rent(owner_has_monopoly=monopoly)
+        rent *= 7 # Speed up game
         print(f"{player.name} owes ${rent} to {owner.name}")
 
         player.pay_rent(rent, owner)
 
-
-   
     def turn(self):
-        #this code will decide whos turn it is and take it
-        #if we decide to implement player vs player we can add to this code
-        
+        # Game ends at turn limit
+        if self.turn_count >= self.max_turns:
+            print("\nReached turn limit. Ending game...")
+            return False
+
         self.turn_count += 1
 
         if self.current_player == "player":
             alive = self.take_turn()
             self.current_player = "cpu"
         else:
-            # CPU may also be Player 2 if PvP
             alive = self.cpu_take_turn()
             self.current_player = "player"
 
         return alive
-        
-        
-        
-    def end_game(self): 
-        
-        """this gives each player what their cash and properties were."""
-        
+
+    def end_game(self):
         print("\nGame over")
         print("Total cash:", self.player.cash)
         print("Properties owned:", self.player.properties)
 
         save_game({
             "cash": self.player.cash,
-            "properties": self.player.properties,
+            "properties": [prop.to_dict() for prop in self.player.properties],
             "turns": self.turn_count
         })
 
-            
-   
-    def __str__ (self):
-        "Gives an update of the board and whos turn it is"
-        "Will need the board for this to work"
-        "Can implement after each turn "
+    def __str__(self):
         return f"Current Player:{self.current_player}\nBoard:{self.board}"
-    
-    
+
     def run(self):
         print("Game Started!")
 
@@ -250,15 +236,27 @@ class Game:
                 break
 
 
-
 if __name__ == "__main__":
     print("Select game mode:")
     print("1. Player vs CPU")
     print("2. Player vs Player")
-    
+
     choice = input("Enter 1 or 2: ")
+    mode = "player_vs_cpu" if choice == "1" else "pvp"
 
-    mode = "pvc" if choice == "1" else "pvp"
+    # Ask for Player 1 name
+    p1 = input("\nEnter Player 1 name: ").strip()
+    if p1 == "":
+        p1 = "Player 1"
 
-    game = Game(mode)
+    # PvP: ask for Player 2 name
+    if mode == "pvp":
+        p2 = input("Enter Player 2 name: ").strip()
+        if p2 == "":
+            p2 = "Player 2"
+    else:
+        p2 = "CPU"
+
+    # Start game with names
+    game = Game(mode, p1=p1, p2=p2)
     game.run()

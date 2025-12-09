@@ -1,0 +1,34 @@
+{
+  "cash": 990,
+  "properties": [
+    {
+      "code": "T1",
+      "name": "T-Row Apartments",
+      "position": 9,
+      "group": "South Campus",
+      "cost": 200,
+      "base_rent": 25,
+      "owner": "Player 1",
+      "mortgaged": false,
+      "houses": 0,
+      "hotels": 0,
+      "current_value": 200,
+      "total_rent_collected": 0
+    },
+    {
+      "code": "H",
+      "name": "Hornbake Library",
+      "position": 21,
+      "group": "Academic Core",
+      "cost": 200,
+      "base_rent": 30,
+      "owner": "Player 1",
+      "mortgaged": false,
+      "houses": 0,
+      "hotels": 0,
+      "current_value": 200,
+      "total_rent_collected": 30
+    }
+  ],
+  "turns": 11
+}
