@@ -1,0 +1,100 @@
+{
+  "turns_played": 22,
+  "players": [
+    {
+      "name": "john",
+      "cash": 1530,
+      "properties": [
+        {
+          "code": "H",
+          "name": "Hornbake Library",
+          "position": 21,
+          "group": "Academic Core",
+          "cost": 200,
+          "base_rent": 30,
+          "owner": "john",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 90
+        },
+        {
+          "code": "U",
+          "name": "Stamp Student Union",
+          "position": 24,
+          "group": "Academic Core",
+          "cost": 200,
+          "base_rent": 30,
+          "owner": "john",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 60
+        },
+        {
+          "code": "T1",
+          "name": "T-Row Apartments",
+          "position": 9,
+          "group": "South Campus",
+          "cost": 200,
+          "base_rent": 25,
+          "owner": "john",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 25
+        },
+        {
+          "code": "V",
+          "name": "Varsity Team House",
+          "position": 36,
+          "group": "Athletics",
+          "cost": 200,
+          "base_rent": 35,
+          "owner": "john",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 35
+        },
+        {
+          "code": "M",
+          "name": "McKeldin Library",
+          "position": 18,
+          "group": "Academic Core",
+          "cost": 200,
+          "base_rent": 30,
+          "owner": "john",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 0
+        },
+        {
+          "code": "C1",
+          "name": "Cambridge Community",
+          "position": 0,
+          "group": "North Campus",
+          "cost": 200,
+          "base_rent": 20,
+          "owner": "john",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 0
+        }
+      ]
+    },
+    {
+      "name": "gabby",
+      "cash": 0,
+      "properties": []
+    }
+  ]
+}

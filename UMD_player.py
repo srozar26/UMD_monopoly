@@ -146,7 +146,7 @@ class Player:
         if self.cash >= amount:
             self.cash -= amount
             to_player.cash += amount
-            print(f"{self.name} paid ${amount} rent to {to_player.name}")
+            print(f"{self.name} paid ${amount} rent to {to_player.name}. Cash remaining for {self.name}: ${self.cash}")
             return True
         else:
             # Player goes bankrupt!
