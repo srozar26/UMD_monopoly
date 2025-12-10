@@ -49,7 +49,12 @@ class Game:
         if symbol not in mapping:
             return None  # event, jail, rent, etc.
 
-        # return first unowned, otherwise first in group
+        # First check if any property with this symbol is owned (for rent)
+        for p in mapping[symbol]:
+            if p.owner is not None:
+                return p
+
+        # If none owned, return first unowned (for buying)
         for p in mapping[symbol]:
             if p.owner is None:
                 return p
@@ -62,6 +67,7 @@ class Game:
 
         roll = randint(1, 6)
         print(f"{current.name} rolled a {roll}")
+        
 
         # Move player and update board
         current.move(roll, 40)
@@ -152,7 +158,7 @@ class Game:
         """Buy decisions for human and CPU"""
 
         cost = prop.cost
-
+        player_properties = []
         # CPU logic
         if player.name == "CPU":
             result = decision_engine(player.cash, cost, prop.code, "mid")
@@ -160,6 +166,7 @@ class Game:
 
             if result["decision"] == "buy":
                 player.buy_property(prop)
+                player_properties.append(prop.name)
             else:
                 print("CPU skipped buying.")
             return
@@ -172,19 +179,22 @@ class Game:
 
             if choice == "y":
                 player.buy_property(prop)
+                player_properties.append(prop.name)
                 break
             elif choice == "n":
                 print(f"{player.name} skipped buying.")
                 break
             else:
                 print("Invalid input. Please enter 'y' or 'n'.")
-
+        print(f"{player.name} now owns: {', '.join(player_properties)}")
     def rent_logic(self, player, prop):
         owner = prop.owner
 
         if owner == player:
             print(f"{player.name} already owns this property.")
             return
+        elif owner !=player and owner:
+            print(f"{prop.name} is owned by {owner.name}.")
 
         # Monopoly logic
         monopoly = owner.has_monopoly(prop.group)
