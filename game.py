@@ -39,7 +39,7 @@ class Game:
             self.board.prop_mapping[symbol].append(prop)
 
         self.turn_count = 0
-        self.max_turns = 100
+        self.max_turns = 150
         self.current_player = "player"
 
     def get_property_from_symbol(self, symbol):
