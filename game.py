@@ -267,14 +267,23 @@ if __name__ == "__main__":
 
     choice = input("Enter 1 or 2: ")
     mode = "player_vs_cpu" if choice == "1" else "pvp"
+    if choice == "1":
+        print("Player1 position on the board is @")
+        print("CPU position on the board is #")
+    else:
+        print("Player1 position on the board is @")
+        print("Player2 position on the board is #")
 
     # Ask for Player 1 name
+    
     p1 = input("\nEnter Player 1 name: ").strip()
     if p1 == "":
         p1 = "Player 1"
 
     # PvP: ask for Player 2 name
+    
     if mode == "pvp":
+        
         p2 = input("Enter Player 2 name: ").strip()
         if p2 == "":
             p2 = "Player 2"
