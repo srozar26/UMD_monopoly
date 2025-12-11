@@ -1,0 +1,100 @@
+{
+  "turns_played": 22,
+  "players": [
+    {
+      "name": "jr",
+      "cash": 1595,
+      "properties": [
+        {
+          "code": "H",
+          "name": "Hornbake Library",
+          "position": 21,
+          "group": "Academic Core",
+          "cost": 200,
+          "base_rent": 30,
+          "owner": "jr",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 30
+        },
+        {
+          "code": "D1",
+          "name": "South Campus Dining",
+          "position": 27,
+          "group": "Dining Halls",
+          "cost": 200,
+          "base_rent": 15,
+          "owner": "jr",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 30
+        },
+        {
+          "code": "C1",
+          "name": "Cambridge Community",
+          "position": 0,
+          "group": "North Campus",
+          "cost": 200,
+          "base_rent": 20,
+          "owner": "jr",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 60
+        },
+        {
+          "code": "T1",
+          "name": "T-Row Apartments",
+          "position": 9,
+          "group": "South Campus",
+          "cost": 200,
+          "base_rent": 25,
+          "owner": "jr",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 0
+        },
+        {
+          "code": "V",
+          "name": "Varsity Team House",
+          "position": 36,
+          "group": "Athletics",
+          "cost": 200,
+          "base_rent": 35,
+          "owner": "jr",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 70
+        },
+        {
+          "code": "M",
+          "name": "McKeldin Library",
+          "position": 18,
+          "group": "Academic Core",
+          "cost": 200,
+          "base_rent": 30,
+          "owner": "jr",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 30
+        }
+      ]
+    },
+    {
+      "name": "CPU",
+      "cash": 0,
+      "properties": []
+    }
+  ]
+}

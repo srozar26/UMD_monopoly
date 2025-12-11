@@ -219,7 +219,7 @@ class Game:
         else:
             alive = self.cpu_take_turn()
             self.current_player = "player"
-
+        print(self)
         return alive
 
     def end_game(self):
@@ -248,7 +248,20 @@ class Game:
 
 
     def __str__(self):
-        return f"Current Player:{self.current_player}\nBoard:{self.board}"
+        player_props = "None"
+        cpu_props = "None"
+
+        if self.player.properties:
+            player_props = ",".join([prop.name for prop in self.player.properties])
+        if self.cpu.properties:
+            cpu_props = ",".join([prop.name for prop in self.cpu.properties])
+
+        return (
+            f"Properties\n"
+            f"{self.player.name} owns:{player_props}\n"
+            f"{self.cpu.name} owns:{cpu_props}"
+        )
+
 
     def run(self):
         print("Game Started!")
