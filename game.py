@@ -248,18 +248,16 @@ class Game:
 
 
     def __str__(self):
-        player_props = "None"
-        cpu_props = "None"
-
-        if self.player.properties:
-            player_props = ",".join([prop.name for prop in self.player.properties])
-        if self.cpu.properties:
-            cpu_props = ",".join([prop.name for prop in self.cpu.properties])
+    
+        player_properties = (",".join([prop.name for prop in self.player.properties])
+                             if self.player.properties else "None")
+        cpu_properties = (",".join([prop.name for prop in self.cpu.properties])
+                          if self.cpu.properties else "None")
 
         return (
             f"Properties\n"
-            f"{self.player.name} owns:{player_props}\n"
-            f"{self.cpu.name} owns:{cpu_props}"
+            f"{self.player.name} owns:{player_properties}\n"
+            f"{self.cpu.name} owns: {cpu_properties}"
         )
 
 
