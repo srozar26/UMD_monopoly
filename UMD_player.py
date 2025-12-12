@@ -1,4 +1,3 @@
-import json
 from typing import List, Dict, Optional, Set
 from datetime import datetime
 from UMD_property import UMDProperty
@@ -161,55 +160,7 @@ class Player:
             self.properties.clear()
             print(f"{self.name} cannot pay ${amount} rent and goes bankrupt!")
             return False
-    
-    def get_net_worth(self):
-        """
-        Calculate player's total net worth including property values.
         
-        Returns:
-            Total net worth in dollars
-        """
-        property_value = sum(prop.calculate_value() for prop in self.properties)
-        return self.cash + property_value
-    
-    def can_afford(self, amount: int, min_reserve: int = 100):
-        """
-        Check if player can afford amount while maintaining minimum reserve.
-        
-        Primary Author: [Your Name Here]
-        Technique: Conditional expression USED
-        """
-        # Conditional expression used
-        return True if (self.cash - amount) >= min_reserve else False
-    
-    def find_property_by_code(self, code: str):
-        """
-        Find a property owned by this player using its board code.
-        Uses regular expressions for flexible matching.
-        
-        Primary Author: [Your Name Here]
-        Technique: Regular expressions
-        """
-        import re
-        
-        for prop in self.properties:
-            # Exact match of property
-            if prop.code == code:
-                return prop
-            
-            # Regex match for variations
-            pattern = f"^{code}"
-            if re.match(pattern, prop.code):
-                return prop
-        
-        return None
-    
-    def get_property_groups(self):
-        """
-        Get all property groups the player has properties in.
-        Returns dictionary with group names and owned property codes.
-        """
-        return self.owned_groups.copy()
     
     def has_monopoly(self, group_name: str):
         """Check if player has monopoly in specific group."""
@@ -247,65 +198,3 @@ class Player:
             "timestamp": datetime.now().isoformat()
         }
     
-    def save_to_file(self, filename: Optional[str] = None):
-        """
-        Save player data to JSON file.
-        
-        Args:
-            filename: player
-            
-        Returns:
-            Player object or None if failed
-        """
-        if filename is None:
-            filename = f"{self.name}_player.json"
-        
-        try:
-            with open(filename, 'w', encoding='utf-8') as f:
-                json.dump(self.to_dict(), f, indent=2)
-            
-            print(f"Success! Player data was saved to {filename}")
-            return filename
-        except Exception as e:
-            print(f"Error saving player data: {e}")
-            return ""
-    
-    @classmethod
-    def load_from_file(cls, filename: str):
-        """
-        Load player from JSON file.
-        
-        Args:
-            filename: player
-            
-        Returns:
-            Player object or None if failed
-        """
-        try:
-            with open(filename, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-            
-            # Create player
-            player = cls(
-                name=data["name"],
-                token=data.get("token", "@"),
-                cash=data["cash"],
-                position=data["position"]
-            )
-            
-            # Restore state of player
-            player.in_jail = data.get("in_jail", False)
-            player.jail_turns = data.get("jail_turns", 0)
-            player.get_out_of_jail_cards = data.get("get_out_of_jail_cards", 0)
-            player.bankrupt = data.get("bankrupt", False)
-            player.monopolies = set(data.get("monopolies", []))
-            player.turns_played = data.get("turns_played", 0)
-            player.total_moves = data.get("total_moves", 0)
-            player.properties_bought = data.get("properties_bought", 0)
-            
-            
-            print(f"Success! Player data was loaded from {filename}")
-            return player
-        except Exception as e:
-            print(f"Error loading player data: {e}")
-            return None

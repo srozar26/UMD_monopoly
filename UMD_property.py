@@ -1,6 +1,4 @@
-import json
-import re
-from typing import Dict, List, Optional  # Removed problematic imports
+from typing import Optional
 from datetime import datetime
 
 
@@ -32,7 +30,7 @@ class UMDProperty:
             "type": PropertyType.HOUSING,
             "color": "Red", 
             "properties": {
-                "C1": "Cambridge Community",
+                "C": "Cambridge Community",
                 "C2": "Cambridge Hall",
                 "C3": "Cambridge Commons"
             },
@@ -45,7 +43,7 @@ class UMDProperty:
             "type": PropertyType.HOUSING,
             "color": "Teal",
             "properties": {
-                "T1": "T-Row Apartments",
+                "T": "T-Row Apartments",
                 "T2": "Terrapin Row",
                 "T3": "Towers"
             },
@@ -215,10 +213,6 @@ class UMDProperty:
             "price": self.cost
         })
     
-    def remove_owner(self):
-        """Remove property owner (for selling/bankruptcy)."""
-        self.owner = None
-    
     def calculate_rent(self, dice_roll: int = 0, owner_has_monopoly: bool = False):
         """
         TO calculate the rent of property based on various factors.
@@ -271,162 +265,11 @@ class UMDProperty:
         
         return value
     
-    def calculate_roi(self):
-        """Calculate return on investment."""
-        if self.cost == 0:
-            return 0.0
-        
-        total_rent = sum(entry["amount"] for entry in self.rent_history)
-        return total_rent / self.cost
-    
     def _get_house_cost(self):
         """Get cost to build a house on this property."""
         if self.group in self.PROPERTY_GROUPS:
             return self.PROPERTY_GROUPS[self.group].get("house_cost", 100)
         return 100
-    
-    def add_house(self):
-        """Add a house to the property."""
-        if self.houses >= 4:
-            return False
-        
-        self.houses += 1
-        return True
-    
-    def add_hotel(self):
-        """Add a hotel to the property (replaces 4 houses)."""
-        if self.houses < 4:
-            return False
-        
-        self.houses = 0
-        self.hotels += 1
-        return True
-    
-    def mortgage(self):
-        """Mortgage the property and return cash received."""
-        if self.mortgaged:
-            return 0
-        
-        self.mortgaged = True
-        cash = self.cost // 2
-        
-        # Also get half value of houses/hotels
-        cash += (self.houses * self._get_house_cost()) // 2
-        cash += (self.hotels * self._get_house_cost() * 2) // 2
-        
-        self.houses = 0
-        self.hotels = 0
-        
-        return cash
-    
-    def unmortgage(self, with_interest: bool = True):
-        """Unmortgage the property and return cost."""
-        if not self.mortgaged:
-            return 0
-        
-        cost = self.cost // 2
-        if with_interest:
-            cost += self.cost // 10  # 10% interest
-        
-        self.mortgaged = False
-        return cost
-    
-    def get_related_properties(self, all_properties: List['UMDProperty']):
-        """
-        Find all properties in the same group.
-        Uses set operations for efficient filtering.
-        
-        Primary Author: [Your Name Here]
-        Technique: Set operations
-        """
-        if self.group not in self.PROPERTY_GROUPS:
-            return []
-        
-        # Get all property codes in this group
-        group_codes = set(self.PROPERTY_GROUPS[self.group]["properties"].keys())
-        
-        # Use set intersection to find matching properties
-        related = []
-        for prop in all_properties:
-            if prop.code in group_codes and prop != self:
-                related.append(prop)
-        
-        return related
-    
-    @classmethod
-    def find_best_investment(cls, properties: List['UMDProperty'], 
-                           budget: int, owned_codes: set = None):
-        """
-        Find the best property investment based on budget and existing portfolio.
-        Uses key function with sorted().
-        
-        Primary Author: [Your Name Here]
-        Technique: Key function with sorted()
-        Original algorithm for investment scoring
-        """
-        if owned_codes is None:
-            owned_codes = set()
-        
-        # Filter affordable and available properties
-        available = [p for p in properties if p.cost <= budget and not p.owner]
-        
-        if not available:
-            return None
-        
-        def investment_score(prop: 'UMDProperty'):
-            """
-            Original algorithm for calculating investment score.
-            Combines multiple factors into a single score.
-            """
-            score = 0.0
-            
-            # Factor 1: Base ROI (30% weight)
-            base_roi = prop.base_rent / max(prop.cost, 1)
-            score += base_roi * 0.3
-            
-            # Factor 2: Group completion bonus (40% weight)
-            if prop.group in cls.PROPERTY_GROUPS:
-                group_codes = set(cls.PROPERTY_GROUPS[prop.group]["properties"].keys())
-                owned_in_group = owned_codes.intersection(group_codes)
-                
-                # Calculate completion percentage
-                total_in_group = len(group_codes)
-                owned_count = len(owned_in_group)
-                completion_ratio = (owned_count + 1) / total_in_group  # +1 for this property
-                
-                # Exponential bonus for near-completion
-                if completion_ratio >= 0.67:  # 2/3 complete
-                    score += 0.4 * (completion_ratio ** 2)
-                else:
-                    score += 0.4 * completion_ratio
-            
-            # Factor 3: Position advantage (15% weight)
-            # Properties closer to GO are more valuable
-            position_score = 1 - (prop.position / 40)
-            score += position_score * 0.15
-            
-            # Factor 4: Affordability (15% weight)
-            affordability = 1 - (prop.cost / max(budget, 1))
-            score += affordability * 0.15
-            
-            return score
-        
-        # Sort by investment score
-        sorted_props = sorted(available, key=investment_score, reverse=True)
-        return sorted_props[0] if sorted_props else None
-    
-    def analyze_name(self) :
-        """Analyze property name using regular expressions."""
-        analysis = {
-            "name": self.name,
-            "word_count": len(re.findall(r'\b\w+\b', self.name)),
-            "contains_umd": bool(re.search(r'\bUMD\b', self.name, re.IGNORECASE)),
-            "contains_terp": bool(re.search(r'\bterp\b', self.name, re.IGNORECASE)),
-            "contains_maryland": bool(re.search(r'\bmaryland\b', self.name, re.IGNORECASE)),
-            "acronyms": re.findall(r'\b[A-Z]{2,}\b', self.name),
-            "building_numbers": re.findall(r'\b\d+\b', self.name)
-        }
-        return analysis
     
     def to_dict(self):
         """Convert property to dictionary."""
@@ -451,14 +294,6 @@ class UMDProperty:
             "current_value": self.calculate_value(),
             "total_rent_collected": sum(entry["amount"] for entry in self.rent_history)
         }
-    
-    def to_json(self, indent: Optional[int] = 2):
-        """Convert property to JSON string."""
-        data = self.to_dict()
-        data["analysis"] = self.analyze_name()
-        data["timestamp"] = datetime.now().isoformat()
-        
-        return json.dumps(data, indent=indent)
     
     @classmethod
     def create_UMD_board(cls) :

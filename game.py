@@ -33,7 +33,7 @@ class Game:
         # Create mapping from board symbols to properties
         self.board.prop_mapping = {}
         for prop in self.all_properties:
-            symbol = prop.code[0]
+            symbol = prop.code
             if symbol not in self.board.prop_mapping:
                 self.board.prop_mapping[symbol] = []
             self.board.prop_mapping[symbol].append(prop)
@@ -192,6 +192,7 @@ class Game:
 
         if owner == player:
             print(f"{player.name} already owns this property.")
+            
             return
         elif owner !=player and owner:
             print(f"{prop.name} is owned by {owner.name}.")

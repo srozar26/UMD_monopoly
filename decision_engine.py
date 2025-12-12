@@ -13,6 +13,12 @@ def decision_engine(player_cash, property_cost, property_type, game_stage):
             - "decision"(str): "buy", "skip", or "risky"
             - "confidence"(int): confidence percentage from 0-100
             - "reason"(str): explanation for the decision
+            - "affordability_ratio"(float): ratio of property cost to player cash
+            - "remaining_cash"(int): cash left after potential purchase
+            - "risk_score"(int): number of risk factors identified (0-3)
+    
+    Side Effects:
+        None. This is a pure function that does not modify any external state.
     """
     affordability = property_cost /  player_cash
     remaining_cash =  player_cash - property_cost
