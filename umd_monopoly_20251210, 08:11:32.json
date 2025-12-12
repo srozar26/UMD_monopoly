@@ -1,0 +1,100 @@
+{
+  "turns_played": 17,
+  "players": [
+    {
+      "name": "JR",
+      "cash": 0,
+      "properties": []
+    },
+    {
+      "name": "BRADY",
+      "cash": 1680,
+      "properties": [
+        {
+          "code": "T1",
+          "name": "T-Row Apartments",
+          "position": 9,
+          "group": "South Campus",
+          "cost": 200,
+          "base_rent": 25,
+          "owner": "BRADY",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 75
+        },
+        {
+          "code": "H",
+          "name": "Hornbake Library",
+          "position": 21,
+          "group": "Academic Core",
+          "cost": 200,
+          "base_rent": 30,
+          "owner": "BRADY",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 0
+        },
+        {
+          "code": "U",
+          "name": "Stamp Student Union",
+          "position": 24,
+          "group": "Academic Core",
+          "cost": 200,
+          "base_rent": 30,
+          "owner": "BRADY",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 90
+        },
+        {
+          "code": "M",
+          "name": "McKeldin Library",
+          "position": 18,
+          "group": "Academic Core",
+          "cost": 200,
+          "base_rent": 30,
+          "owner": "BRADY",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 0
+        },
+        {
+          "code": "C1",
+          "name": "Cambridge Community",
+          "position": 0,
+          "group": "North Campus",
+          "cost": 200,
+          "base_rent": 20,
+          "owner": "BRADY",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 0
+        },
+        {
+          "code": "V",
+          "name": "Varsity Team House",
+          "position": 36,
+          "group": "Athletics",
+          "cost": 200,
+          "base_rent": 35,
+          "owner": "BRADY",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 0
+        }
+      ]
+    }
+  ]
+}

@@ -220,7 +220,7 @@ class Game:
         else:
             alive = self.cpu_take_turn()
             self.current_player = "player"
-
+        print(self)
         return alive
 
     def end_game(self):
@@ -249,7 +249,18 @@ class Game:
 
 
     def __str__(self):
-        return f"Current Player:{self.current_player}\nBoard:{self.board}"
+    
+        player_properties = (",".join([prop.name for prop in self.player.properties])
+                             if self.player.properties else "None")
+        cpu_properties = (",".join([prop.name for prop in self.cpu.properties])
+                          if self.cpu.properties else "None")
+
+        return (
+            f"Properties\n"
+            f"{self.player.name} owns:{player_properties}\n"
+            f"{self.cpu.name} owns: {cpu_properties}"
+        )
+
 
     def run(self):
         print("Game Started!")
@@ -268,14 +279,23 @@ if __name__ == "__main__":
 
     choice = input("Enter 1 or 2: ")
     mode = "player_vs_cpu" if choice == "1" else "pvp"
+    if choice == "1":
+        print("Player1 position on the board is @")
+        print("CPU position on the board is #")
+    else:
+        print("Player1 position on the board is @")
+        print("Player2 position on the board is #")
 
     # Ask for Player 1 name
+    
     p1 = input("\nEnter Player 1 name: ").strip()
     if p1 == "":
         p1 = "Player 1"
 
     # PvP: ask for Player 2 name
+    
     if mode == "pvp":
+        
         p2 = input("Enter Player 2 name: ").strip()
         if p2 == "":
             p2 = "Player 2"
