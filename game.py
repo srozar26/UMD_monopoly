@@ -8,7 +8,26 @@ from save import save_game
 
 
 class Game:
+        """
+        Main controller for the game. Handles the turns, players, board state,
+        property,game termination, and saving the game.
+        """
+
     def __init__(self, mode="player_vs_cpu", p1="Player 1", p2="Player 2"):
+        """
+        Initialize the game, board, players, and property mappings.
+
+        Args:
+            mode: Game mode ("player_vs_cpu" or "pvp").
+            p1: Name of player 1.
+            p2: Name of player 2 (only in PvP).
+
+        Side Effects:
+            - Instantiates Player objects
+            - Initializes the board
+            - Creates property mappings
+        """
+
         self.board = MakeBoard()
 
         # player setup
@@ -43,6 +62,17 @@ class Game:
         self.current_player = "player"
 
     def get_property_from_symbol(self, symbol):
+        """
+            Map a board symbol to its corresponding property.
+
+            Args:
+                symbol: Tile symbol from the board.
+
+            Returns:
+                UMDProperty or None: Owned property if present, otherwise an unowned
+                property, or None if the tile is not a property.
+        """
+
         # maps the board symbols to the umd properties
         mapping = self.board.prop_mapping
 
@@ -62,6 +92,18 @@ class Game:
         return mapping[symbol][0]
 
     def take_turn(self):
+        """
+            Do a full turn for the human player.
+
+            Returns:
+                bool: False if the player loses (cash <= 0), True otherwise.
+
+            Side Effects:
+                - Updates player position
+                - Modifies cash and property ownership
+                - Prints board state and turn information
+        """
+
         current = self.player
         print("\nTurn:", self.turn_count + 1)
 
@@ -89,6 +131,17 @@ class Game:
         return True
 
     def cpu_take_turn(self):
+        """
+            Complete a turn for the CPU or Player 2.
+
+            Returns:
+                bool: False if the player/cpu loses, True otherwise.
+
+            Side Effects:
+                - Updates board and player state
+                - Prints turn output
+        """
+
         roll = randint(1, 6)
         current = self.cpu  # Could be CPU or Player 2 depending on what user selected
 
@@ -122,6 +175,19 @@ class Game:
         return True
 
     def handle_tile(self, player, tile_symbol):
+        """
+            Deals with landing on a tile.
+
+            Args:
+                player: Current player.
+                tile_symbol: Symbol of the tile landed on.
+
+            Side Effects:
+                - trigger events
+                -  modify player cash
+                - include buy or rent logic
+        """
+
 
         # Event tile
         if tile_symbol == "E":
@@ -155,7 +221,19 @@ class Game:
             self.rent_logic(player, prop)
 
     def buy_logic(self, player, prop):
-        """Buy decisions for human and CPU"""
+        """
+            Controls purchase decisions for properties.
+
+            Args:
+                player: Player attempting to buy.
+                prop: Property being chosen for buying.
+
+            Side Effects:
+                - Reduces cash
+                - Assigns property ownership
+        """
+
+        
 
         cost = prop.cost
         player_properties = []
@@ -187,7 +265,19 @@ class Game:
             else:
                 print("Invalid input. Please enter 'y' or 'n'.")
         print(f"{player.name} now owns: {', '.join(player_properties)}")
+        
     def rent_logic(self, player, prop):
+        """
+            Handles rent payment.
+
+            Args:
+                player: Player paying rent.
+                prop: Property landed on.
+
+            Side Effects:
+                - Transfers cash between players/cpu
+        """
+
         owner = prop.owner
 
         if owner == player:
@@ -207,6 +297,17 @@ class Game:
         player.pay_rent(rent, owner)
 
     def turn(self):
+        """
+            Complete a single turn and switch players.
+
+            Returns:
+                bool: False if the game ends, True otherwise.
+
+            Side Effects:
+                - Increases turn count
+                - Swaps active player
+        """
+
         # Game ends at turn limit
         if self.turn_count >= self.max_turns:
             print("\nReached turn limit. Ending game...")
@@ -224,6 +325,13 @@ class Game:
         return alive
 
     def end_game(self):
+        """
+            End the game and save final state.
+
+            Side Effects:
+                - Writes save data to disk
+        """
+
         print("\nGame over!")
 
         # this will give the data for not just player 1 but also player 2. before we only had player 1 save data
@@ -268,6 +376,10 @@ class Game:
 
 
     def run(self):
+        """
+            Run the main game loop until termination.
+        """
+
         print("Game Started!")
 
         while True:
