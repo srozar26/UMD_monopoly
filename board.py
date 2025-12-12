@@ -16,17 +16,17 @@ R = Rent a house
 class MakeBoard:
     def __init__(self):
         self.board_layout = [
-            "C V M U U H D V V M E",
+            "C V M U U H D1 V X M E",
             "T                   M",
-            "T                   U",
-            "U                   T",
+            "T3                   U",
+            "U                   T2",
             "H                   J",
-            "U                   V",
+            "S                   V",
             "E                   E",
             "C                   V",
             "C                   V",
             "M                   M",
-            "J D C E T H R R D H E",
+            "J D3 C E T H R R D2 H E",
         ]
         
         

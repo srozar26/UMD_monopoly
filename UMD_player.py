@@ -161,6 +161,7 @@ class Player:
             self.properties.clear()
             print(f"{self.name} cannot pay ${amount} rent and goes bankrupt!")
             return False
+        
     
     def get_net_worth(self):
         """

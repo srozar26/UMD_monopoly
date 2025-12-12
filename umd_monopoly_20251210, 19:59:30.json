@@ -1,42 +1,42 @@
 {
-  "turns_played": 41,
+  "turns_played": 95,
   "players": [
     {
-      "name": "b",
+      "name": "john",
       "cash": 0,
       "properties": []
     },
     {
-      "name": "f",
-      "cash": 1765,
+      "name": "CPU",
+      "cash": 2450,
       "properties": [
         {
-          "code": "H",
-          "name": "Hornbake Library",
-          "position": 21,
+          "code": "M",
+          "name": "McKeldin Library",
+          "position": 18,
           "group": "Academic Core",
           "cost": 200,
           "base_rent": 30,
-          "owner": "f",
+          "owner": "CPU",
           "mortgaged": false,
           "houses": 0,
           "hotels": 0,
           "current_value": 200,
-          "total_rent_collected": 30
+          "total_rent_collected": 240
         },
         {
-          "code": "D1",
-          "name": "South Campus Dining",
-          "position": 27,
-          "group": "Dining Halls",
+          "code": "C1",
+          "name": "Cambridge Community",
+          "position": 0,
+          "group": "North Campus",
           "cost": 200,
-          "base_rent": 15,
-          "owner": "f",
+          "base_rent": 20,
+          "owner": "CPU",
           "mortgaged": false,
           "houses": 0,
           "hotels": 0,
           "current_value": 200,
-          "total_rent_collected": 30
+          "total_rent_collected": 40
         },
         {
           "code": "V",
@@ -45,12 +45,40 @@
           "group": "Athletics",
           "cost": 200,
           "base_rent": 35,
-          "owner": "f",
+          "owner": "CPU",
           "mortgaged": false,
           "houses": 0,
           "hotels": 0,
           "current_value": 200,
-          "total_rent_collected": 105
+          "total_rent_collected": 210
+        },
+        {
+          "code": "H",
+          "name": "Hornbake Library",
+          "position": 21,
+          "group": "Academic Core",
+          "cost": 200,
+          "base_rent": 30,
+          "owner": "CPU",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 90
+        },
+        {
+          "code": "D1",
+          "name": "South Campus Dining",
+          "position": 27,
+          "group": "Dining Halls",
+          "cost": 200,
+          "base_rent": 15,
+          "owner": "CPU",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 30
         },
         {
           "code": "U",
@@ -59,7 +87,7 @@
           "group": "Academic Core",
           "cost": 200,
           "base_rent": 30,
-          "owner": "f",
+          "owner": "CPU",
           "mortgaged": false,
           "houses": 0,
           "hotels": 0,
@@ -73,40 +101,12 @@
           "group": "South Campus",
           "cost": 200,
           "base_rent": 25,
-          "owner": "f",
+          "owner": "CPU",
           "mortgaged": false,
           "houses": 0,
           "hotels": 0,
           "current_value": 200,
-          "total_rent_collected": 25
-        },
-        {
-          "code": "C1",
-          "name": "Cambridge Community",
-          "position": 0,
-          "group": "North Campus",
-          "cost": 200,
-          "base_rent": 20,
-          "owner": "f",
-          "mortgaged": false,
-          "houses": 0,
-          "hotels": 0,
-          "current_value": 200,
-          "total_rent_collected": 60
-        },
-        {
-          "code": "M",
-          "name": "McKeldin Library",
-          "position": 18,
-          "group": "Academic Core",
-          "cost": 200,
-          "base_rent": 30,
-          "owner": "f",
-          "mortgaged": false,
-          "houses": 0,
-          "hotels": 0,
-          "current_value": 200,
-          "total_rent_collected": 30
+          "total_rent_collected": 100
         }
       ]
     }

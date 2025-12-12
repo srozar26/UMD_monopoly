@@ -32,7 +32,7 @@ class UMDProperty:
             "type": PropertyType.HOUSING,
             "color": "Red", 
             "properties": {
-                "C1": "Cambridge Community",
+                "C": "Cambridge Community",
                 "C2": "Cambridge Hall",
                 "C3": "Cambridge Commons"
             },
@@ -45,7 +45,7 @@ class UMDProperty:
             "type": PropertyType.HOUSING,
             "color": "Teal",
             "properties": {
-                "T1": "T-Row Apartments",
+                "T": "T-Row Apartments",
                 "T2": "Terrapin Row",
                 "T3": "Towers"
             },
@@ -302,56 +302,7 @@ class UMDProperty:
         self.hotels += 1
         return True
     
-    def mortgage(self):
-        """Mortgage the property and return cash received."""
-        if self.mortgaged:
-            return 0
-        
-        self.mortgaged = True
-        cash = self.cost // 2
-        
-        # Also get half value of houses/hotels
-        cash += (self.houses * self._get_house_cost()) // 2
-        cash += (self.hotels * self._get_house_cost() * 2) // 2
-        
-        self.houses = 0
-        self.hotels = 0
-        
-        return cash
     
-    def unmortgage(self, with_interest: bool = True):
-        """Unmortgage the property and return cost."""
-        if not self.mortgaged:
-            return 0
-        
-        cost = self.cost // 2
-        if with_interest:
-            cost += self.cost // 10  # 10% interest
-        
-        self.mortgaged = False
-        return cost
-    
-    def get_related_properties(self, all_properties: List['UMDProperty']):
-        """
-        Find all properties in the same group.
-        Uses set operations for efficient filtering.
-        
-        Primary Author: [Your Name Here]
-        Technique: Set operations
-        """
-        if self.group not in self.PROPERTY_GROUPS:
-            return []
-        
-        # Get all property codes in this group
-        group_codes = set(self.PROPERTY_GROUPS[self.group]["properties"].keys())
-        
-        # Use set intersection to find matching properties
-        related = []
-        for prop in all_properties:
-            if prop.code in group_codes and prop != self:
-                related.append(prop)
-        
-        return related
     
     @classmethod
     def find_best_investment(cls, properties: List['UMDProperty'], 

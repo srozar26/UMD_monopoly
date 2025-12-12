@@ -1,0 +1,115 @@
+{
+  "turns_played": 150,
+  "players": [
+    {
+      "name": "jon",
+      "cash": 2665,
+      "properties": [
+        {
+          "code": "D1",
+          "name": "South Campus Dining",
+          "position": 27,
+          "group": "Dining Halls",
+          "cost": 200,
+          "base_rent": 15,
+          "owner": "jon",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 45
+        },
+        {
+          "code": "T1",
+          "name": "T-Row Apartments",
+          "position": 9,
+          "group": "South Campus",
+          "cost": 200,
+          "base_rent": 25,
+          "owner": "jon",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 200
+        },
+        {
+          "code": "C1",
+          "name": "Cambridge Community",
+          "position": 0,
+          "group": "North Campus",
+          "cost": 200,
+          "base_rent": 20,
+          "owner": "jon",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 200
+        },
+        {
+          "code": "U",
+          "name": "Stamp Student Union",
+          "position": 24,
+          "group": "Academic Core",
+          "cost": 200,
+          "base_rent": 30,
+          "owner": "jon",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 210
+        },
+        {
+          "code": "H",
+          "name": "Hornbake Library",
+          "position": 21,
+          "group": "Academic Core",
+          "cost": 200,
+          "base_rent": 30,
+          "owner": "jon",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 120
+        }
+      ]
+    },
+    {
+      "name": "gabe",
+      "cash": 775,
+      "properties": [
+        {
+          "code": "M",
+          "name": "McKeldin Library",
+          "position": 18,
+          "group": "Academic Core",
+          "cost": 200,
+          "base_rent": 30,
+          "owner": "gabe",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 300
+        },
+        {
+          "code": "V",
+          "name": "Varsity Team House",
+          "position": 36,
+          "group": "Athletics",
+          "cost": 200,
+          "base_rent": 35,
+          "owner": "gabe",
+          "mortgaged": false,
+          "houses": 0,
+          "hotels": 0,
+          "current_value": 200,
+          "total_rent_collected": 280
+        }
+      ]
+    }
+  ]
+}
