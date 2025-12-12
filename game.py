@@ -248,6 +248,11 @@ class Game:
 
 
     def __str__(self):
+        """This method 
+
+        Returns:
+            _type_: _description_
+        """
     
         player_properties = (",".join([prop.name for prop in self.player.properties])
                              if self.player.properties else "None")

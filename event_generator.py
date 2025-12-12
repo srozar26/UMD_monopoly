@@ -1,8 +1,14 @@
 import random
 class event_generator:
+    """a class that picks a random event for the player.
+    it chooses from a dict of good events or bad events and then returns
+        one of them.
+    """
 
     def event_generator():
-        """randomly selects an event to occur
+        """randomly selects a good or bad event based off of a pre made
+        dictionary
+        Returns str: A message telling the player which event they got.
         """
         good_events = {1:" you get a car",3:"you get a new dorm",
                     5:"you get a scooter"}
@@ -17,9 +23,9 @@ class event_generator:
 
         if random_event == 1:
 
-            print(f"Your good event is{random_good_event}")
+            return f"Your good event is{random_good_event}"
         else:
-            print(f"Your bad event is{random_bad_event}")
+            return f"Your bad event is{random_bad_event}"
             
     
     if __name__ == "__main__":
