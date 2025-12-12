@@ -14,7 +14,26 @@ R = Rent a house
 
 """
 class MakeBoard:
+    """
+    Represents the UMD Monopoly game board.
+    
+    Manages an 11x11 board layout where players move around the perimeter 
+    in a clockwise direction starting from the bottom-right corner.
+    """
+    
     def __init__(self):
+        """
+        Initializes a new game board with the default UMD campus layout.
+        
+        Args:
+            None.
+        
+        Returns:
+            None.
+        
+        Side Effects:
+            Sets instance attributes: board_layout, players, and size.
+        """
         self.board_layout = [
             "C V M U U H D1 V X M E",
             "T                   M",
@@ -38,7 +57,18 @@ class MakeBoard:
         self.size = 11  # Board is 11x11
     
     def display_board(self):
-        """Show current board with player positions"""
+        """
+        Displays the current game board with player positions in the terminal.
+        
+        Args:
+            None.
+        
+        Returns:
+            None.
+        
+        Side Effects:
+            Prints the ASCII board representation to stdout.
+        """
         #build grid
         grid = []
         for i in range(self.size):
@@ -90,6 +120,19 @@ class MakeBoard:
             print(border)
             
     def get_tile(self, position):
+        """
+        Gets the tile symbol at a specific board position.
+        
+        Args:
+            position(int): the board position (0-39). Values outside this
+                range are wrapped using modulo 40.
+        
+        Returns:
+            str: the tile symbol at the given position (e.g., 'M', 'V', 'E').
+        
+        Side Effects:
+            None. This is a pure function that does not modify any external state.
+        """
         bottom = self.board_layout[-1].split()
         top = self.board_layout[0].split()
         left = [self.board_layout[i].split()[0] for i in range(9, 0, -1)]
